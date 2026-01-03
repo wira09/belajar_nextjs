@@ -1,16 +1,7 @@
-import Link from "next/link";
 import "./globals.css";
-
-// panggil api pakai fetch
-async function getLastPost() {
-  const res = await fetch(
-    "https://jsonplaceholder.typicode.com/posts?_limit=5"
-  );
-  const post = await res.json();
-  return post;
-  // memunculkan di terminal
-  // console.log(await res.json());
-}
+import { getLastPost } from "@/lib/api";
+// panggil file dari PostList
+import PostList from "@/components/PostList";
 
 export default async function Home() {
   const posts = await getLastPost();
@@ -22,15 +13,7 @@ export default async function Home() {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
           minima vel ullam.
         </p>
-      </div>
-      <div className="post-list">
-        {posts.map((post) => (
-          <div className="post-item" key={post.id}>
-            <h2>
-              <Link href="/">{post.title}</Link>
-            </h2>
-          </div>
-        ))}
+        <PostList posts={posts} />
       </div>
     </>
   );
